@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Download, RefreshCw, AlertCircle, Clock } from 'lucide-react';
+import { Download, RefreshCw } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 const InquiryList: React.FC = () => {

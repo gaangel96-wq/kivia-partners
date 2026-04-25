@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, PenTool, Database, Link2 } from 'lucide-react';
+import { PenTool, Database } from 'lucide-react';
 import Wizard from './components/Wizard';
 import InquiryList from './components/InquiryList';
 
