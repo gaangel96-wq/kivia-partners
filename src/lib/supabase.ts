@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://gefmiytwqwvryiqrtbru.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
 const isUrlValid = (url: string) => {
   try {
@@ -11,13 +11,13 @@ const isUrlValid = (url: string) => {
   }
 };
 
-if (!isUrlValid(supabaseUrl)) {
-  console.warn('Supabase 환경 변수가 설정되지 않았거나 유효하지 않습니다. .env.local 파일을 확인해 주세요.');
+if (!isUrlValid(supabaseUrl) || !supabaseAnonKey) {
+  console.warn('Supabase 환경 변수가 설정되지 않았거나 유효하지 않습니다. Vercel 환경 변수를 확인해 주세요.');
 }
 
-// 유효하지 않은 경우 더미 클라이언트를 생성하거나 null을 허용하도록 처리
-export const supabase = isUrlValid(supabaseUrl) 
-  ? createClient(supabaseUrl, supabaseAnonKey || '')
+// 유효하지 않은 경우 클라이언트를 생성하지 않고 null을 반환하도록 처리
+export const supabase = (isUrlValid(supabaseUrl) && supabaseAnonKey) 
+  ? createClient(supabaseUrl, supabaseAnonKey)
   : (null as any); 
 
 /**
