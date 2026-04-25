@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-const modelName = import.meta.env.VITE_GEMINI_MODEL || "gemini-2.0-flash";
+const modelName = import.meta.env.VITE_GEMINI_MODEL || "gemini-1.5-flash";
 
 export interface AIClassificationResult {
   category: string;

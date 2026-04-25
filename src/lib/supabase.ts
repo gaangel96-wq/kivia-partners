@@ -15,10 +15,11 @@ if (!isUrlValid(supabaseUrl) || !supabaseAnonKey) {
   console.warn('Supabase 환경 변수가 설정되지 않았거나 유효하지 않습니다. Vercel 환경 변수를 확인해 주세요.');
 }
 
-// 유효하지 않은 경우 클라이언트를 생성하지 않고 null을 반환하도록 처리
-export const supabase = (isUrlValid(supabaseUrl) && supabaseAnonKey) 
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : (null as any); 
+// 환경 변수가 없어도 더미 키로 초기화하여 Vercel 빌드 시(Tree-shaking) 코드가 날아가는 것을 방지합니다.
+export const supabase = createClient(
+  isUrlValid(supabaseUrl) ? supabaseUrl : 'https://gefmiytwqwvryiqrtbru.supabase.co',
+  supabaseAnonKey || 'dummy-key-to-prevent-tree-shaking'
+);
 
 /**
  * PRD에 정의된 inquiries 테이블 스키마 예시:
